@@ -1,7 +1,9 @@
+//create a class called DodgeBall Player with properties id, name, age, skills, birthplace, throw ball, dodge ball, paid, healthy, and experience 
 
 const arrOfPeople = [];
 
-//create a class called DodgeBall Player with properties id, name, age, skills, birthplace, throw ball, dodge ball, paid, healthy, and experience 
+const arrOfDodgeballPlayers = []; 
+
 class DodgeballPlayer{
 
     id;
@@ -32,6 +34,10 @@ class DodgeballPlayer{
     //create method that will add new dodgeball player instance to array of people 
     addToPeopleList(){
         arrOfPeople.push(this); 
+    }
+
+    addToDodgeBallPlayerList(){
+        arrOfDodgeballPlayers.push(this); 
     }
 }
 
@@ -88,44 +94,55 @@ chris.addToPeopleList();
 let gary = new DodgeballPlayer("gary hanke", 37, "pro gamer", "Boston, MA", true, false, true, false, 2); 
 gary.addToPeopleList(); 
 
-console.log(arrOfPeople); 
+
+console.log(arrOfPeople);
+ 
 
 function listPeopleChoices(){
     
     //access listofpeople element in HTML
     const listofPeople = document.getElementById("people");
     //call map method on arrayofpeople and do following steps for each person object
-    arrOfPeople.map(person => {
-        const li = document.createElement("li"); //creates line item
-        li.id = person.name; //gives id to line item and assigns it to the current persons name
-        const button = document.createElement("button"); //creates button element 
-        button.innerHTML = "Make Player"; //access innerHTML of button to put string "MAKE PLAYER"
-        button.addEventListener('click', function() {makePlayer(person)}); //add event listener to button that will send current person object to make player function
-        li.appendChild(button); //attaches button to line item 
-        li.appendChild(document.createTextNode(' --> ')); //attaches arrow to line item 
-        li.appendChild(document.createTextNode(person.name + ' - ' + person.skills)); //attaches certain property values of current person to new line item
-        listofPeople.append(li); //attaches new line item to list of people (UL)
-    })
+    for(let i = 0; i < arrOfPeople.length; i++){
+        let currentPerson = arrOfPeople[i]; 
+        let currentPersonsName = currentPerson.name;
+        const lineItem = document.createElement("li"); 
+        lineItem.id = currentPersonsName; 
+        const button = document.createElement("button"); 
+        button.addEventListener('click', function () {makePlayer(currentPerson)}); 
+        button.innerHTML = "Make Dodge Player"; 
+        lineItem.appendChild(button); 
+        lineItem.appendChild(document.createTextNode('-->'));
+        lineItem.appendChild(document.createTextNode('Name: ' +currentPersonsName + ' - id: ' + currentPerson.id + ' - ' + currentPerson.skills))
+        listofPeople.append(lineItem); 
+    }
 }
-    
+
+function clearList(){
+    document.getElementById("people").innerHTML = ''; 
+}
 
 function makePlayer(person){
 
     const listOfDodgeBallPlayers = document.getElementById("players"); //access UL
     const dodgeBallPlayer = document.createElement("li"); //creates new line item 
     dodgeBallPlayer.id = person.name //assigns current person's name to new line item ID
-    dodgeBallPlayer.appendChild(document.createTextNode('Name: ' +  person.name + ' - Age: ' + person.age + ' - Skills: ' + person.skills + ' - Birthplace: ' + person.placeBorn + ' - canThrowBall: ' + person.canThrowBall + ' - canDodgeBall: ' + person.canDodgeBall + ' - hasPaid: ' + person.hasPaid + ' - isHealthy: ' + person.isHealthy + ' - yearsExperience: ' + person.yearsExperience + ' ')); //adds properties to line item 
-    listOfDodgeBallPlayers.append(dodgeBallPlayer); //attaches new line item to list of dodge ball players 
-    
+    let newPlayer = new DodgeballPlayer(person.name, person.age, person.skills, person.placeBorn, person.canThrowBall, person.canDodgeBall, person.hasPaid, person.isHealthy, person.yearsExperience); 
+    let newPlayerInfo = document.createTextNode(JSON.stringify(newPlayer)); 
     const redButton = document.createElement("button"); //create red button 
     const blueButton = document.createElement("button"); //creates blue button 
+    redButton.addEventListener('click', function(){addRedTeam(newPlayer)});
+    blueButton.addEventListener('click', function(){addBlueTeam(newPlayer)});
     redButton.innerHTML =  "Red Team"; //assigns appropriate name 
     blueButton.innerHTML = "Blue Team"; //assigns appropriate name 
-    dodgeBallPlayer.appendChild(redButton); //adds button to line item 
-    dodgeBallPlayer.appendChild(document.createTextNode(' ')); 
-    dodgeBallPlayer.appendChild(blueButton); //adds button to line item 
-    redButton.addEventListener('click', function() {addRedTeam(person)}); //creates event listeners for each new button. When clicked, either the addRedTeam or addBlueTeam function will be executed and the current person object will be the argument for the input parameter
-    blueButton.addEventListener('click', function() {addBlueTeam(person)}); 
+    dodgeBallPlayer.appendChild(newPlayerInfo); 
+    dodgeBallPlayer.appendChild(redButton);
+    dodgeBallPlayer.appendChild(blueButton); 
+    listOfDodgeBallPlayers.append(dodgeBallPlayer); //attaches new line item to list of dodge ball players 
+
+    newPlayer.addToDodgeBallPlayerList(this);  
+
+
     
     document.getElementById(person.name).remove(); //access the line item by using current person's name and removes it from previous list 
         
