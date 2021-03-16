@@ -1,99 +1,124 @@
-//create a class called DodgeBall Player with properties id, name, age, skills, birthplace, throw ball, dodge ball, paid, healthy, and experience 
+const arrOfDodgeballPlayers = [];
 
-const arrOfPeople = [];
+const arrOfPeople = [
+    {
+      id: 2,
+      name: "Charles Young",
+      age: 55,
+      skillSet: "welding",
+      placeBorn: "Omaha, Nebraska"
+    },
+    {
+      id: 3,
+      name: "Judy Twilight",
+      age: 35,
+      skillSet: "fishing",
+      placeBorn: "Louisville, Kentucky"
+    },
+    {
+      id: 4,
+      name: "Cynthia Doolittle",
+      age: 20,
+      skillSet: "tic tac toe",
+      placeBorn: "Pawnee, Texas"
+    },
+    {
+      id: 5,
+      name: "John Willouby",
+      age: 28,
+      skillSet: "pipe fitting",
+      placeBorn: "New York, New York"
+    },
+    {
+      id: 6,
+      name: "Stan Honest",
+      age: 20,
+      skillSet: "boom-a-rang throwing",
+      placeBorn: "Perth, Australia"
+    },
+    {
+      id: 7,
+      name: "Mia Watu",
+      age: 17,
+      skillSet: "acrobatics",
+      placeBorn: "Los Angeles, California"
+    },
+    {
+      id: 8,
+      name: "Walter Cole",
+      age: 32,
+      skillSet: "jump rope",
+      placeBorn: "New Orleans, Louisiana"
+    },
+] 
 
-const arrOfDodgeballPlayers = []; 
+class Person{
 
-class DodgeballPlayer{
+  id; 
+  name;
+  age;
+  skillSet;
+  placeBorn; 
 
-    id;
-    name;
-    age;
-    skills;
-    placeBorn; 
-    canThrowBall; 
-    canDodgeBall; 
-    hasPaid; 
-    isHealthy;
-    yearsExperience; 
+  constructor(inputId, inputName, inputAge, inputSkills, inputPlaceBorn){
+    this.id = inputId; 
+    this.name = inputName;
+    this.age = inputAge;
+    this.skillSet = inputSkills;
+    this.placeBorn = inputPlaceBorn; 
+  }
+}
 
-    constructor(inputName, inputAge, inputSkills, inputPlaceBorn, inputCanThrowBall, inputCanDodgeBall, inputHasPaid, inputIsHealthy, inputYearsExperience){ 
-        let randomNumber = Math.round(Math.random() * (100 - 1) + 1); 
-        this.id = randomNumber; 
-        this.name = inputName;
-        this.age = inputAge;
-        this.skills = inputSkills;
-        this.placeBorn = inputPlaceBorn; 
-        this.canThrowBall = inputCanThrowBall;
-        this.canDodgeBall = inputCanDodgeBall;
-        this.hasPaid = inputHasPaid;
-        this.isHealthy = inputIsHealthy;
-        this.yearsExperience = inputYearsExperience; 
-    }
+class DodgeballPlayer extends Person{
+ 
+  canThrowBall; 
+  canDodgeBall; 
+  hasPaid; 
+  isHealthy;
+  yearsExperience; 
 
-    //create method that will add new dodgeball player instance to array of people 
-    addToPeopleList(){
-        arrOfPeople.push(this); 
-    }
+  constructor(inputId, inputName, inputAge, inputSkills, inputPlaceBorn, inputCanThrowBall, inputCanDodgeBall, inputHasPaid, inputIsHealthy, inputYearsExperience){ 
+    super(inputId, inputName, inputAge, inputSkills, inputPlaceBorn); 
+    this.canThrowBall = true;
+    this.canDodgeBall = true;
+    this.hasPaid = true;
+    this.isHealthy = true;
+    this.yearsExperience = 10; 
+  }
 
-    addToDodgeBallPlayerList(){
-        arrOfDodgeballPlayers.push(this); 
-    }
+  addToDodgeBallPlayerList(){
+    arrOfDodgeballPlayers.push(this); 
+  }
 }
 
 //create redteam class that extends dodgeball player and takes property values from parent constructor 
-class RedTeam extends DodgeballPlayer{
+class RedTeam extends Person{
 
     //include 2 new properties called color and mascot with the values 'red' and 'red cougar' appropriately 
+    
     color;
     mascot;
 
-    constructor(inputName, inputAge, inputSkills, inputPlaceBorn){
-        super(inputName, inputAge, inputSkills, inputPlaceBorn);
-        this.color = 'red';
-        this.mascot = 'red cougar'; 
+    constructor(inputId, inputName, inputAge, inputSkills, inputPlaceBorn){
+      super(inputId, inputName, inputAge, inputSkills, inputPlaceBorn);
+      this.color = 'red';
+      this.mascot = 'red cougar'; 
     }
 }
 
 //create blueteam class that extends dodgeball player and takes property values from parent constructor 
-class BlueTeam extends DodgeballPlayer{
+class BlueTeam extends Person{
 
     color;
     mascot; 
 
-    constructor(inputName, inputAge, inputSkills, inputPlaceBorn){
-        super(inputName, inputAge, inputSkills, inputPlaceBorn); 
+    constructor(inputId, inputName, inputAge, inputSkills, inputPlaceBorn){
+        super(inputId, inputName, inputAge, inputSkills, inputPlaceBorn); 
         this.color = 'blue'; 
         this.mascot = 'blue whale';
     }
+
 }
-
-//new dodgeball player instances 
-
-let james = new DodgeballPlayer("james messina", 35, 'bass guitar', 'Passaic, NJ', true, true, true, true, 15); 
-james.addToPeopleList();
-
-let timmy = new DodgeballPlayer("timmy grimes", 30, 'drums', 'Las Vegas, NV', true, false, true, false, 4); 
-timmy.addToPeopleList();
-
-let john = new DodgeballPlayer("john smith", 25, 'pro fisherman', 'Camden, NJ', true, true, false, false, 5);
-john.addToPeopleList(); 
-
-let sam = new DodgeballPlayer("sam garcia", 20, 'skateboards', 'Morristown, NJ', true, false, false, true, 10);
-sam.addToPeopleList(); 
-
-let tina = new DodgeballPlayer("tina frank", 45, 'house wife', 'San Diego, CA', true, true, true, false, 25);
-tina.addToPeopleList(); 
-
-let billy = new DodgeballPlayer("billy paranto", 35, 'black belt', 'Flint, MI', false, true, false, false, 7);
-billy.addToPeopleList(); 
-
-let chris = new DodgeballPlayer("chris beck", 27, 'wrestler', 'Virginia Beach, VA', true, true, false, false, 10);
-chris.addToPeopleList(); 
-
-let gary = new DodgeballPlayer("gary hanke", 37, "pro gamer", "Boston, MA", true, false, true, false, 2); 
-gary.addToPeopleList(); 
-
 
 console.log(arrOfPeople);
  
@@ -113,13 +138,13 @@ function listPeopleChoices(){
         button.innerHTML = "Make Dodge Player"; 
         lineItem.appendChild(button); 
         lineItem.appendChild(document.createTextNode('-->'));
-        lineItem.appendChild(document.createTextNode('Name: ' +currentPersonsName + ' - id: ' + currentPerson.id + ' - ' + currentPerson.skills))
+        lineItem.appendChild(document.createTextNode('Name: ' + currentPersonsName + ' - id: ' + currentPerson.id + ' - special skill: ' + currentPerson.skillSet));
         listofPeople.append(lineItem); 
     }
 }
 
 function clearList(){
-    document.getElementById("people").innerHTML = ''; 
+  document.getElementById("people").innerHTML = ''; 
 }
 
 function makePlayer(person){
@@ -127,7 +152,7 @@ function makePlayer(person){
     const listOfDodgeBallPlayers = document.getElementById("players"); //access UL
     const dodgeBallPlayer = document.createElement("li"); //creates new line item 
     dodgeBallPlayer.id = person.name //assigns current person's name to new line item ID
-    let newPlayer = new DodgeballPlayer(person.name, person.age, person.skills, person.placeBorn, person.canThrowBall, person.canDodgeBall, person.hasPaid, person.isHealthy, person.yearsExperience); 
+    let newPlayer = new DodgeballPlayer(person.id, person.name, person.age, person.skillSet, person.placeBorn, person.canThrowBall, person.canDodgeBall, person.hasPaid, person.isHealthy, person.yearsExperience); 
     let newPlayerInfo = document.createTextNode(JSON.stringify(newPlayer)); 
     const redButton = document.createElement("button"); //create red button 
     const blueButton = document.createElement("button"); //creates blue button 
@@ -140,7 +165,7 @@ function makePlayer(person){
     dodgeBallPlayer.appendChild(blueButton); 
     listOfDodgeBallPlayers.append(dodgeBallPlayer); //attaches new line item to list of dodge ball players 
 
-    newPlayer.addToDodgeBallPlayerList(this);  
+    newPlayer.addToDodgeBallPlayerList();  
 
 
     
@@ -151,13 +176,13 @@ function makePlayer(person){
 
 function addRedTeam(person){
 
-    let updatedPersonRed = new RedTeam(person.name, person.age, person.skills, person.placeBorn); // sends property values from current person object to red team class. From there it adds the properties mascot and color to the current object and gives values of 'red' and 'cougar' 
-    
+    let updatedPersonRed = new RedTeam(person.id, person.name, person.age, person.skillSet, person.placeBorn); // sends property values from current person object to red team class. From there it adds the properties mascot and color to the current object and gives values of 'red' and 'cougar' 
+    //console.log(updatedPersonRed); 
 
     const listOfRedTeamMembers = document.getElementById("red");  //accesses red team member list 
     const redTeamMember = document.createElement("li"); //creates new line item 
     redTeamMember.id = updatedPersonRed.name; //assigns name to id of new line item 
-    redTeamMember.appendChild(document.createTextNode('Name: ' +  updatedPersonRed.name + ' - Age: ' + person.age + ' - Skills: ' + person.skills + ' - Birthplace: ' + person.placeBorn + ' - canThrowBall: ' + person.canThrowBall + ' - canDodgeBall: ' + person.canDodgeBall + ' - hasPaid: ' + person.hasPaid + ' - isHealthy: ' + person.isHealthy + ' - yearsExperience: ' + person.yearsExperience + ' - TeamColor: ' + updatedPersonRed.color + ' - TeamMascot: ' + updatedPersonRed.mascot)); 
+    redTeamMember.appendChild(document.createTextNode(JSON.stringify(updatedPersonRed))); 
     listOfRedTeamMembers.append(redTeamMember); //does the same as in above function
 
     let redPlayerPicked = document.getElementById(person.name);
@@ -166,12 +191,12 @@ function addRedTeam(person){
 
 function addBlueTeam(person){
 
-    let updatedPersonBlue = new BlueTeam(person.name, person.age, person.skills, person.placeBorn);
+    let updatedPersonBlue = new BlueTeam(person.id, person.name, person.age, person.skillSet, person.placeBorn);
 
     const listOfBlueTeamMembers = document.getElementById("blue"); 
     const blueTeamMember = document.createElement("li"); 
     blueTeamMember.id = updatedPersonBlue.name;
-    blueTeamMember.appendChild(document.createTextNode('Name: ' +  person.name + ' - Age: ' + person.age + ' - Skills: ' + person.skills + ' - Birthplace: ' + person.placeBorn + ' - canThrowBall: ' + person.canThrowBall + ' - canDodgeBall: ' + person.canDodgeBall + ' - hasPaid: ' + person.hasPaid + ' - isHealthy: ' + person.isHealthy + ' - yearsExperience: ' + person.yearsExperience + ' - TeamColor: ' + updatedPersonBlue.color + ' - TeamMascot: ' + updatedPersonBlue.mascot));
+    blueTeamMember.appendChild(document.createTextNode(JSON.stringify(updatedPersonBlue))); 
     listOfBlueTeamMembers.append(blueTeamMember); 
 
     let bluePlayerPicked = document.getElementById(person.name);
